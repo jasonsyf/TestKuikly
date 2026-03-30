@@ -1,0 +1,38 @@
+source 'https://cdn.cocoapods.org/'
+
+target 'iosApp' do
+  use_frameworks!
+  platform :ios, '14.1'
+  pod 'OpenKuiklyIOSRender' , '~> 2.7.0'
+  pod 'shared', :path => '../shared'
+  pod 'SDWebImage', '~> 5.21'
+
+  post_install do |installer|
+    # 修改 Pods 项目中的 target
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['OTHER_LDFLAGS'] ||= '$(inherited)'
+        if target.name == 'shared'
+          config.build_settings['OTHER_LDFLAGS'] += ' -lsqlite3'
+        end
+        # Xcode 26.4 兼容：关闭 SDWebImage 的 module 验证
+        if target.name == 'SDWebImage'
+          config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+        end
+        # Pods 不需要独立签名，使用主 app 签名
+        config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      end
+    end
+    # 修改主项目的 iosApp target（post_install 只能通过 aggregate_targets 访问主项目）
+    installer.aggregate_targets.each do |aggregate_target|
+      aggregate_target.user_project.targets.each do |target|
+        if target.name == 'iosApp'
+            target.build_configurations.each do |config|
+              ldflags = config.build_settings['OTHER_LDFLAGS'] || '$(inherited)'
+              config.build_settings['OTHER_LDFLAGS'] = "#{ldflags} -lsqlite3"
+            end
+        end
+      end
+    end
+  end
+end
