@@ -14,11 +14,12 @@ data class ApiBaseResponse<T>(
 }
 
 /**
- * 玩Android API 接口定义
+ * WanAndroid API 接口定义
+ * 包含首页、体系、导航、项目、公众号、广场、用户等所有API接口
  */
 interface WanApiService {
 
-    // ==================== 首页 ====================
+    // ==================== 首页相关API ====================
 
     suspend fun getHomeArticles(page: Int): ApiBaseResponse<ArticleListData>
 
@@ -30,17 +31,17 @@ interface WanApiService {
 
     suspend fun searchArticles(page: Int, keyword: String): ApiBaseResponse<ArticleListData>
 
-    // ==================== 体系 ====================
+    // ==================== 体系相关API ====================
 
     suspend fun getTreeData(): ApiBaseResponse<List<Tree>>
 
     suspend fun getTreeArticles(page: Int, cid: Int): ApiBaseResponse<ArticleListData>
 
-    // ==================== 导航 ====================
+    // ==================== 导航相关API ====================
 
     suspend fun getNavigationData(): ApiBaseResponse<List<NavigationItem>>
 
-    // ==================== 项目 ====================
+    // ==================== 项目相关API ====================
 
     suspend fun getProjectTags(): ApiBaseResponse<List<ProjectTag>>
 
@@ -48,19 +49,19 @@ interface WanApiService {
 
     suspend fun getLatestProjects(page: Int): ApiBaseResponse<ArticleListData>
 
-    // ==================== 公众号 ====================
+    // ==================== 公众号相关API ====================
 
     suspend fun getWxChapters(): ApiBaseResponse<List<WxChapter>>
 
     suspend fun getWxArticles(id: Int, page: Int): ApiBaseResponse<ArticleListData>
 
-    // ==================== 广场 ====================
+    // ==================== 广场相关API ====================
 
     suspend fun getSquareList(page: Int): ApiBaseResponse<ArticleListData>
 
     suspend fun getWendaList(page: Int): ApiBaseResponse<WendaListData>
 
-    // ==================== 用户 ====================
+    // ==================== 用户相关API ====================
 
     suspend fun login(username: String, password: String): ApiBaseResponse<JsonElement>
 
@@ -78,12 +79,12 @@ interface WanApiService {
 
     suspend fun uncollectArticle(articleId: Int): ApiBaseResponse<JsonElement>
 
-    // ==================== 工具 ====================
+    // ==================== 工具相关API ====================
 
     suspend fun getFriendList(): ApiBaseResponse<List<Friend>>
 }
 
-// ==================== API 响应 Data 类型 ====================
+// ==================== API响应数据类型 ====================
 
 @Serializable
 data class ArticleListData(

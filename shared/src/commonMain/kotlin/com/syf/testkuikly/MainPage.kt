@@ -37,6 +37,10 @@ import com.tencent.kuikly.compose.ui.unit.dp
 import com.syf.testkuikly.base.BasePager
 import com.tencent.kuikly.core.annotations.Page
 
+/**
+ * 主页面
+ * 包含底部导航栏和五个主要功能页面
+ */
 @Page("main", supportInLocal = true)
 internal class MainPage : BasePager() {
 

@@ -4,32 +4,37 @@ import kotlinx.browser.window
 import utils.URL
 
 /**
- * WebApp entry, use renderView delegate method to initialize and create renderView
+ * H5 WebApp 入口
+ * 使用renderView委托方法来初始化和创建渲染视图
+ */
+/**
+ * H5应用主入口函数
+ * 初始化Kuikly渲染器并处理页面生命周期
  */
 fun main() {
     console.log("##### Kuikly Web Render")
-    // Root container id, note that this needs to match the container id in the actual index.html file
+    // 根容器id，需要与实际index.html文件中的容器id匹配
     val containerId = "root"
     val webSign = "is_web"
-    // Process URL parameters
+    // 处理URL参数
     val urlParams = URL.parseParams(window.location.href)
-    // Page name, default is router
+    // 页面名称，默认为main
     val pageName = urlParams["page_name"] ?: "main"
-    // Container size
+    // 容器尺寸
     val containerWidth = window.innerWidth
     val containerHeight = window.innerHeight
-    // Business parameters
+    // 业务参数
     val params: MutableMap<String, String> = mutableMapOf()
-    // Add business parameters
+    // 添加业务参数
     if (urlParams.isNotEmpty()) {
-        // Append all URL parameters to business parameters
+        // 将所有URL参数添加到业务参数中
         urlParams.forEach { (key, value) ->
             params[key] = value
         }
     }
-    // Add web-specific parameters
+    // 添加web特定参数
     params[webSign] = "1"
-    // Page parameter Map
+    // 页面参数Map
     val paramMap = mapOf(
         "statusBarHeight" to 0f,
         "activityWidth" to containerWidth,
@@ -37,26 +42,26 @@ fun main() {
         "param" to params,
     )
 
-    // Initialize delegator
+    // 初始化委托器
     val delegator = KuiklyWebRenderViewDelegator()
-    // Create render view
+    // 创建渲染视图
     delegator.init(
         containerId, pageName, paramMap, SizeI(
             containerWidth,
             containerHeight,
         )
     )
-    // Trigger resume
+    // 触发恢复
     delegator.resume()
 
-    // Register visibility event
+    // 注册可见性事件
     document.addEventListener("visibilitychange", {
         val hidden = document.asDynamic().hidden as Boolean
         if (hidden) {
-            // Page hidden
+            // 页面隐藏
             delegator.pause()
         } else {
-            // Page restored
+            // 页面恢复
             delegator.resume()
         }
     })

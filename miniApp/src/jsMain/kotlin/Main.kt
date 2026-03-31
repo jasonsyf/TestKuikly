@@ -21,7 +21,8 @@ fun main() {
 }
 
 /**
- *  Mini program page entry, use renderView delegate method to initialize and create renderView
+ * 小程序页面入口
+ * 使用renderView委托方法来初始化和创建渲染视图
  */
 @JsName(name = "renderView")
 @JsExport
@@ -55,7 +56,8 @@ fun renderView(json: dynamic) {
 }
 
 /**
- * Register callback methods on the mini program App object, needs to be called in the app.js of the mini program
+ * 注册小程序App对象上的回调方法
+ * 需要在小程序的app.js中调用
  */
 @JsName(name = "initApp")
 @JsExport
