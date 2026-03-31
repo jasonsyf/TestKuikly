@@ -1,19 +1,19 @@
-package com.syf.testkuikly
+package com.syf.testkuikly.project
 
 import com.syf.testkuikly.base.openWebDetail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.syf.testkuikly.base.Utils
+import com.syf.testkuikly.AppColors
+import com.syf.testkuikly.AppRadius
+import com.syf.testkuikly.AppSpacing
+import com.syf.testkuikly.AppTypography
+import com.syf.testkuikly.home.LoadingFooter
+import com.syf.testkuikly.home.NoMoreFooter
 import com.syf.testkuikly.data.Article
-import com.syf.testkuikly.data.ProjectTag
-import com.syf.testkuikly.project.ProjectIntent
-import com.syf.testkuikly.project.ProjectState
-import com.syf.testkuikly.project.ProjectViewModel
 import com.tencent.kuikly.compose.coil3.rememberAsyncImagePainter
 import com.tencent.kuikly.compose.foundation.ExperimentalFoundationApi
 import com.tencent.kuikly.compose.foundation.background
@@ -23,7 +23,6 @@ import com.tencent.kuikly.compose.foundation.layout.Box
 import com.tencent.kuikly.compose.foundation.layout.Column
 import com.tencent.kuikly.compose.foundation.layout.Row
 import com.tencent.kuikly.compose.foundation.layout.Spacer
-import com.tencent.kuikly.compose.foundation.layout.fillMaxHeight
 import com.tencent.kuikly.compose.foundation.layout.fillMaxSize
 import com.tencent.kuikly.compose.foundation.layout.fillMaxWidth
 import com.tencent.kuikly.compose.foundation.layout.height
@@ -41,7 +40,6 @@ import com.tencent.kuikly.compose.ui.Modifier
 import com.tencent.kuikly.compose.ui.draw.clip
 import com.tencent.kuikly.compose.ui.text.font.FontWeight
 import com.tencent.kuikly.compose.foundation.Image
-import com.tencent.kuikly.compose.ui.text.style.TextAlign
 import com.tencent.kuikly.compose.ui.text.style.TextOverflow
 import com.tencent.kuikly.compose.ui.unit.dp
 
@@ -77,7 +75,7 @@ fun ProjectPage() {
                 item(key = "tag_${tag.id}") {
                     Box(
                         contentAlignment = Alignment.Center,
-                        modifier = Modifier
+                        modifier = Modifier.Companion
                             .background(
                                 if (isSelected) AppColors.Primary else AppColors.SurfaceContainer,
                                 RoundedCornerShape(AppRadius.pill)
@@ -134,7 +132,7 @@ private fun ProjectArticleItem(article: Article) {
                 painter = rememberAsyncImagePainter(article.envelopePic),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.width(AppSpacing.small))
+            Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
         }
 
         // 右侧内容
@@ -165,7 +163,7 @@ private fun ProjectArticleItem(article: Article) {
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f)
                 )
-                Spacer(modifier = Modifier.width(AppSpacing.small))
+                Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
                 Text(
                     text = article.author.ifEmpty { article.shareUser.ifEmpty { "匿名" } },
                     style = AppTypography.labelSmall,
@@ -173,7 +171,7 @@ private fun ProjectArticleItem(article: Article) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.width(AppSpacing.small))
+                Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
                 Text(
                     text = article.niceDate,
                     style = AppTypography.labelSmall,

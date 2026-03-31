@@ -1,4 +1,4 @@
-package com.syf.testkuikly
+package com.syf.testkuikly.home
 
 import com.syf.testkuikly.base.openWebDetail
 import androidx.compose.runtime.Composable
@@ -8,12 +8,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.syf.testkuikly.AppColors
+import com.syf.testkuikly.AppRadius
+import com.syf.testkuikly.AppSpacing
+import com.syf.testkuikly.AppTypography
 import com.syf.testkuikly.data.Article
 import com.syf.testkuikly.data.BannerItem
-import com.syf.testkuikly.home.HomeEffect
-import com.syf.testkuikly.home.HomeIntent
-import com.syf.testkuikly.home.HomeState
-import com.syf.testkuikly.home.HomeViewModel
 import com.tencent.kuikly.compose.coil3.rememberAsyncImagePainter
 import com.tencent.kuikly.compose.foundation.Image
 import com.tencent.kuikly.compose.foundation.background
@@ -23,7 +23,6 @@ import com.tencent.kuikly.compose.foundation.layout.Box
 import com.tencent.kuikly.compose.foundation.layout.Column
 import com.tencent.kuikly.compose.foundation.layout.Row
 import com.tencent.kuikly.compose.foundation.layout.Spacer
-import com.tencent.kuikly.compose.foundation.layout.fillMaxHeight
 import com.tencent.kuikly.compose.foundation.layout.fillMaxSize
 import com.tencent.kuikly.compose.foundation.layout.fillMaxWidth
 import com.tencent.kuikly.compose.foundation.layout.height
@@ -75,7 +74,7 @@ fun HomePage() {
     ) {
         if (state.banners.isNotEmpty()) {
             item { BannerSection(state.banners) }
-            item { Spacer(modifier = Modifier.height(AppSpacing.small)) }
+            item { Spacer(modifier = Modifier.Companion.height(AppSpacing.small)) }
         }
 
         state.topArticles.forEach { article ->
@@ -172,18 +171,18 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (isTop || article.top) {
                     TagChip("置顶", AppColors.Primary, AppColors.OnPrimary)
-                    Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                 }
                 if (article.fresh) {
                     TagChip("新", AppColors.Success, AppColors.OnSuccess)
-                    Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                 }
                 article.tagNames.forEach { tag ->
                     TagChip(tag, AppColors.Tertiary, AppColors.OnTertiary)
-                    Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                 }
             }
-            Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+            Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
         }
 
         // 标题
@@ -196,7 +195,7 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
             overflow = TextOverflow.Ellipsis
         )
 
-        Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+        Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
 
         // 描述
         Text(
@@ -209,7 +208,7 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
 
         // 缩略图
         if (article.envelopePic.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(AppSpacing.small))
+            Spacer(modifier = Modifier.Companion.height(AppSpacing.small))
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -221,7 +220,7 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
             )
         }
 
-        Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+        Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
 
         // 底部元信息
         val author = if (article.author.isNotEmpty()) article.author else article.shareUser
@@ -238,7 +237,7 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f)
             )
-            Spacer(modifier = Modifier.width(AppSpacing.small))
+            Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
             Text(
                 text = author.ifEmpty { "匿名" },
                 style = AppTypography.labelSmall,
@@ -246,7 +245,7 @@ fun ArticleItem(article: Article, isTop: Boolean = false) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.width(AppSpacing.small))
+            Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
             Text(
                 text = article.niceDate,
                 style = AppTypography.labelSmall,

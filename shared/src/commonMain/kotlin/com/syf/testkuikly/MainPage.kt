@@ -19,8 +19,6 @@ import com.tencent.kuikly.compose.foundation.layout.fillMaxWidth
 import com.tencent.kuikly.compose.foundation.layout.height
 import com.tencent.kuikly.compose.foundation.layout.padding
 import com.tencent.kuikly.compose.foundation.layout.size
-import com.tencent.kuikly.compose.foundation.layout.width
-import com.tencent.kuikly.compose.foundation.shape.RoundedCornerShape
 import com.tencent.kuikly.compose.material3.Text
 import com.tencent.kuikly.compose.ui.Alignment
 import com.tencent.kuikly.compose.ui.Modifier
@@ -35,6 +33,11 @@ import com.tencent.kuikly.compose.ui.graphics.drawscope.Stroke
 import com.tencent.kuikly.compose.ui.platform.LocalActivity
 import com.tencent.kuikly.compose.ui.unit.dp
 import com.syf.testkuikly.base.BasePager
+import com.syf.testkuikly.home.HomePage
+import com.syf.testkuikly.mine.MinePage
+import com.syf.testkuikly.navigation.NavigationPage
+import com.syf.testkuikly.project.ProjectPage
+import com.syf.testkuikly.square.SquarePage
 import com.tencent.kuikly.core.annotations.Page
 
 /**

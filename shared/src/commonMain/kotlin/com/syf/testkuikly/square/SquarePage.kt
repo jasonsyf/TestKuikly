@@ -1,4 +1,4 @@
-package com.syf.testkuikly
+package com.syf.testkuikly.square
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,9 +6,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.syf.testkuikly.square.SquareIntent
-import com.syf.testkuikly.square.SquareState
-import com.syf.testkuikly.square.SquareViewModel
+import com.syf.testkuikly.AppColors
+import com.syf.testkuikly.AppSpacing
+import com.syf.testkuikly.AppTypography
+import com.syf.testkuikly.home.ArticleItem
+import com.syf.testkuikly.home.LoadingFooter
 import com.tencent.kuikly.compose.foundation.ExperimentalFoundationApi
 import com.tencent.kuikly.compose.foundation.background
 import com.tencent.kuikly.compose.foundation.clickable
@@ -28,7 +30,6 @@ import com.tencent.kuikly.compose.foundation.shape.RoundedCornerShape
 import com.tencent.kuikly.compose.material3.Text
 import com.tencent.kuikly.compose.ui.Alignment
 import com.tencent.kuikly.compose.ui.Modifier
-import com.tencent.kuikly.compose.ui.graphics.Color
 import com.tencent.kuikly.compose.ui.text.font.FontWeight
 import com.tencent.kuikly.compose.ui.unit.dp
 
@@ -68,7 +69,7 @@ fun SquarePage() {
                         color = if (isSelected) AppColors.Primary else AppColors.OnSurfaceVariant,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                     )
-                    Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
                     Box(
                         modifier = Modifier
                             .height(2.dp)

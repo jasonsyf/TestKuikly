@@ -1,4 +1,4 @@
-package com.syf.testkuikly
+package com.syf.testkuikly.navigation
 
 import com.syf.testkuikly.base.openWebDetail
 import androidx.compose.runtime.Composable
@@ -8,11 +8,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.syf.testkuikly.base.Utils
+import com.syf.testkuikly.AppColors
+import com.syf.testkuikly.AppRadius
+import com.syf.testkuikly.AppSpacing
+import com.syf.testkuikly.AppTypography
+import com.syf.testkuikly.home.LoadingFooter
+import com.syf.testkuikly.home.NoMoreFooter
 import com.syf.testkuikly.data.Article
-import com.syf.testkuikly.navigation.NavigationIntent
-import com.syf.testkuikly.navigation.NavigationState
-import com.syf.testkuikly.navigation.NavigationViewModel
 import com.tencent.kuikly.compose.foundation.background
 import com.tencent.kuikly.compose.foundation.clickable
 import com.tencent.kuikly.compose.foundation.layout.Arrangement
@@ -40,7 +42,6 @@ import com.tencent.kuikly.compose.ui.graphics.Color
 import com.tencent.kuikly.compose.ui.text.font.FontWeight
 import com.tencent.kuikly.compose.ui.text.style.TextOverflow
 import com.tencent.kuikly.compose.ui.unit.dp
-import com.tencent.kuikly.compose.ui.unit.sp
 
 @Composable
 fun NavigationPage() {
@@ -226,14 +227,14 @@ private fun TreeArticleItem(article: Article) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (article.fresh) {
                     TagChip("新", AppColors.Success, AppColors.OnSuccess)
-                    Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                 }
                 article.tagNames.forEach { tag ->
                     TagChip(tag, AppColors.Primary, AppColors.OnPrimary)
-                    Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                    Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                 }
             }
-            Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+            Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
         }
         Text(
             text = article.decodedTitle,
@@ -243,7 +244,7 @@ private fun TreeArticleItem(article: Article) {
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
-        Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+        Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -253,7 +254,8 @@ private fun TreeArticleItem(article: Article) {
             Text(text = article.niceDate, style = AppTypography.labelMedium, color = AppColors.OnSurfaceVariant)
         }
     }
-    Box(modifier = Modifier.fillMaxWidth().height(0.5.dp).padding(start = AppSpacing.large).background(AppColors.OutlineVariant))
+    Box(modifier = Modifier.fillMaxWidth().height(0.5.dp).padding(start = AppSpacing.large).background(
+        AppColors.OutlineVariant))
 }
 
 // ==================== 导航 Tab ====================
@@ -280,7 +282,7 @@ private fun NaviTab(state: NavigationState, onSelectNavi: (Int) -> Unit) {
         LazyColumn(
             modifier = Modifier.width(100.dp).fillMaxHeight().background(AppColors.SurfaceContainerLow)
         ) {
-            item { Spacer(modifier = Modifier.height(AppSpacing.extraSmall)) }
+            item { Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall)) }
             itemsIndexed(state.navItems, key = { index, item -> "navi_sidebar_${index}_${item.id}" }) { index, item ->
                 val isSelected = state.navItems.indexOf(naviItem) == index
                 Row(
@@ -299,9 +301,9 @@ private fun NaviTab(state: NavigationState, onSelectNavi: (Int) -> Unit) {
                                 .clip(RoundedCornerShape(1.5.dp))
                                 .background(AppColors.Primary)
                         )
-                        Spacer(modifier = Modifier.width(AppSpacing.extraSmall))
+                        Spacer(modifier = Modifier.Companion.width(AppSpacing.extraSmall))
                     } else {
-                        Spacer(modifier = Modifier.width(AppSpacing.small))
+                        Spacer(modifier = Modifier.Companion.width(AppSpacing.small))
                     }
                     Text(
                         text = item.name,
@@ -333,7 +335,7 @@ private fun NaviTab(state: NavigationState, onSelectNavi: (Int) -> Unit) {
                 items(naviItem.articles, key = { "navi_art_${it.id}" }) { article ->
                     NaviArticleItem(article)
                 }
-                item { Spacer(modifier = Modifier.height(AppSpacing.medium)) }
+                item { Spacer(modifier = Modifier.Companion.height(AppSpacing.medium)) }
             }
         } else {
             Box(modifier = Modifier.fillMaxHeight().weight(1f), contentAlignment = Alignment.Center) {
@@ -362,7 +364,7 @@ private fun NaviArticleItem(article: Article) {
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
-        Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
+        Spacer(modifier = Modifier.Companion.height(AppSpacing.extraSmall))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(text = article.author.ifEmpty { article.shareUser.ifEmpty { "匿名" } }, style = AppTypography.labelMedium, color = AppColors.OnSurfaceVariant)
             Text(text = article.niceDate, style = AppTypography.labelMedium, color = AppColors.OnSurfaceVariant)
